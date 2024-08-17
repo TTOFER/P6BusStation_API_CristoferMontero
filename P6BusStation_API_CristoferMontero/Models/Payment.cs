@@ -15,7 +15,7 @@ public partial class Payment
 
     public string PaymentMethod { get; set; } = null!;
 
-    public string? TransactionId { get; set; }
+    public string TransactionId { get; set; } = null!;
 
     public virtual TicketPurchase TicketPurchase { get; set; } = null!;
 }

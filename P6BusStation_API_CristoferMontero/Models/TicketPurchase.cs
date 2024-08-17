@@ -15,7 +15,7 @@ public partial class TicketPurchase
 
     public DateTime PurchaseDate { get; set; }
 
-    public string? TicketStatus { get; set; }
+    public string TicketStatus { get; set; } = null!;
 
     public virtual ICollection<Payment> Payments { get; set; } = new List<Payment>();
 

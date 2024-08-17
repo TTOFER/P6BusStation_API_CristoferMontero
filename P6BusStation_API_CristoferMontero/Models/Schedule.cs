@@ -11,7 +11,7 @@ public partial class Schedule
 
     public DateTime AvailableDate { get; set; }
 
-    public string? WeekDayName { get; set; }
+    public string WeekDayName { get; set; } = null!;
 
     public short ArrivalHour { get; set; }
 
