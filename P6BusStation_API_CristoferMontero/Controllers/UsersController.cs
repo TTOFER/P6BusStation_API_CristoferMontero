@@ -124,6 +124,36 @@ namespace P6BusStation_API_CristoferMontero.Controllers
             return NoContent();
         }
 
+        // POST: api/Users/ValidateUser
+        [HttpPost("ValidateUser")]
+        public async Task<ActionResult<UsuarioDTO>> ValidateUser([FromBody] UserLoginRequest loginRequest)
+        {
+            // Consulta para verificar si el usuario existe y las credenciales coinciden
+            var user = await _context.Users
+                .Where(u => u.Email == loginRequest.Email && u.UserPassword == loginRequest.Password)
+                .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                // Si no se encuentra el usuario, retornamos Unauthorized
+                return Unauthorized(new { message = "Credenciales incorrectas." });
+            }
+
+            // Si el usuario existe, mapeamos los datos a un DTO y retornamos la información
+            UsuarioDTO usuarioDTO = new UsuarioDTO
+            {
+                UsuarioID = user.UserId,
+                Correo = user.Email,
+                Nombre = user.UserName,
+                Telefono = user.PhoneNumber,
+                Contrasennia = user.UserPassword,
+                Direccion = user.Adress,
+                RolID = user.UserRoleId
+            };
+
+            return Ok(usuarioDTO);
+        }
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
